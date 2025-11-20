@@ -1,0 +1,70 @@
+# Wallet 系统配置
+
+server:
+  host: "0.0.0.0"
+  port: 8080
+  read_timeout: 10s
+  write_timeout: 10s
+
+database:
+  driver: "postgres"
+  host: "localhost"
+  port: 5432
+  user: "wallet"
+  password: "changeme"  # 生产环境用环境变量
+  database: "wallet_db"
+  max_conns: 50
+
+# 支持的区块链
+chains:
+  - chain_id: 1
+    name: "ethereum"
+    rpc_urls:
+      - "https://rpc.ankr.com/eth"
+      - "https://eth.llamarpc.com"
+    ws_urls:
+      - "wss://eth.llamarpc.com"
+    is_testnet: false
+
+  - chain_id: 56
+    name: "bsc"
+    rpc_urls:
+      - "https://bsc-dataseed.binance.org"
+      - "https://rpc.ankr.com/bsc"
+    ws_urls:
+      - "wss://bsc-ws-node.nariox.org:443"
+    is_testnet: false
+
+  - chain_id: 137
+    name: "polygon"
+    rpc_urls:
+      - "https://polygon-rpc.com"
+      - "https://rpc.ankr.com/polygon"
+    is_testnet: false
+
+# 扫块配置
+scanner:
+  enabled: true
+  start_block: 0  # 0 表示从最新区块开始
+  confirm_blocks: 12  # ETH 推荐 12 个确认
+  batch_size: 100
+  scan_interval: 3s
+  concurrent_chains: 3
+
+# 归集配置
+collect:
+  enabled: false  # 默认关闭，需手动开启
+  interval: 1h
+  min_amount: "0.1"  # 0.1 ETH
+  target_address: "0x..."  # 归集目标地址
+  reserve_amount: "0.01"  # 保留 gas 费
+  max_concurrent: 5
+
+# 风控配置
+risk:
+  enabled: true
+  daily_limit: "100"  # 100 ETH
+  single_limit: "10"  # 10 ETH
+  whitelist_addrs: []
+  blacklist_addrs: []
+  require_manual_approval: true  # 大额交易需人工审批

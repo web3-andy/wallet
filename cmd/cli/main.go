@@ -7,25 +7,27 @@ import (
 	"log"
 	"math/big"
 
+	"wallet/pkg/gas"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"wallet/gas"
 )
 
 func main() {
 	// 选择你要测试的功能
 	// 取消注释你想运行的示例：
 
-	// exampleEstimateGas()
-	// exampleSendTransaction()
+	exampleEstimateGas()
+	exampleSendTransaction()
 	exampleCompareSpeed()
 }
 
 // 示例1：仅估算 gas 参数（不发送交易）
 func exampleEstimateGas() {
-	fmt.Println("=== 估算 Gas 参数示例 ===\n")
+	fmt.Println("=== 估算 Gas 参数示例 ===")
+	fmt.Println()
 
 	// 连接到以太坊主网（你可以换成其他 RPC）
 	client, err := ethclient.Dial("https://rpc.ankr.com/eth")
@@ -72,7 +74,8 @@ func exampleEstimateGas() {
 
 // 示例2：完整流程 - 发送真实交易（需要私钥）
 func exampleSendTransaction() {
-	fmt.Println("=== 发送交易示例 ===\n")
+	fmt.Println("=== 发送交易示例 ===")
+	fmt.Println()
 
 	// ⚠️ 警告：这会发送真实交易！请确保你知道自己在做什么
 	privateKeyHex := "YOUR_PRIVATE_KEY_HERE" // 替换成你的私钥（不要提交到 git！）
@@ -155,7 +158,8 @@ func exampleSendTransaction() {
 
 // 示例3：对比不同速度档位
 func exampleCompareSpeed() {
-	fmt.Println("=== 对比不同速度档位 ===\n")
+	fmt.Println("=== 对比不同速度档位 ===")
+	fmt.Println()
 
 	client, err := ethclient.Dial("https://rpc.ankr.com/eth")
 	if err != nil {
